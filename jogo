@@ -1,0 +1,58 @@
+package main
+
+import (
+	"fmt"
+	"math/rand"
+)
+
+func main() {
+	denovo := true
+	tentativas := make(map[int][]int)
+	for denovo {
+		numero := rand.Intn(100)
+		resp := ""
+		palpite := 0
+		var contador []int
+		fmt.Println("Bem-vindo ao jogo da adivinhação!")
+		fmt.Print("Digite um número de 1 a 100: ")
+		fmt.Scan(&palpite)
+		for true {
+			if numero == 0 {
+				rand.Intn(100)
+			}
+			if palpite == numero {
+				fmt.Println("Parabéns, você acertou!")
+				break
+			} else {
+				if palpite > numero {
+					fmt.Println("O número é menor que", palpite)
+				} else if palpite < numero {
+					fmt.Println("O número é maior que", palpite)
+				}
+				fmt.Print("Digite um número de 0 a 100: ")
+				fmt.Scan(&palpite)
+				contador = append(contador, palpite)
+			}
+		}
+
+		tentativas[len(tentativas)+1] = contador
+
+		fmt.Println("Você utilizou ", len(contador), " tentativas.")
+		fmt.Print("Deseja continuar?")
+		fmt.Scan(&resp)
+		if resp != "N" && resp != "S" || resp != "s" {
+			fmt.Println("Resposta inválida")
+			fmt.Print("Deseja continuar?")
+			fmt.Scan(&resp)
+			if resp == "N" || resp == "n" {
+				denovo = false
+			}
+		} else if resp == "N" || resp == "n" {
+			denovo = false
+		}
+	}
+	fmt.Println("\nNúmero de tentativas em todas as jogadas:")
+	for i, attempts := range tentativas {
+		fmt.Printf("Jogada %d: %d tentativas\n", i, len(attempts))
+	}
+}
