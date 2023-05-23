@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"strings"
 )
 
 func main() {
@@ -40,14 +41,15 @@ func main() {
 		fmt.Println("Você utilizou ", len(contador), " tentativas.")
 		fmt.Print("Deseja continuar?")
 		fmt.Scan(&resp)
-		if resp != "N" && resp != "S" || resp != "s" {
+		resp = strings.ToLower(resp)
+		if resp != "n" && resp != "s" {
 			fmt.Println("Resposta inválida")
 			fmt.Print("Deseja continuar?")
 			fmt.Scan(&resp)
-			if resp == "N" || resp == "n" {
+			if resp == "n" {
 				denovo = false
 			}
-		} else if resp == "N" || resp == "n" {
+		} else if resp == "n" {
 			denovo = false
 		}
 	}
